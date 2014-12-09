@@ -1,4 +1,6 @@
 require 'pp'
+require 'json'
+# require_relative 'curriculum'
 
 # Require json and parse the json file
 #
@@ -20,3 +22,19 @@ require 'pp'
 #     Read - 1
 #     Update - 6
 #     Delete - 2
+
+
+file = File.read('curriculum.json')
+curriculum = JSON.parse(file, symbolize_names: true)
+
+curriculum[:units].each do |unit|
+  puts unit[:name]
+  unit[:lessons].each do |lesson|
+    lesson_name = lesson[:name]
+    comment_count = 0
+    lesson[:occurrences].each do |date, occurrence|
+      comment_count += occurrence[:comments].length
+    end
+    puts "  #{lesson_name} - #{comment_count}"
+  end
+end

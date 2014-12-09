@@ -1,4 +1,5 @@
 require 'pp'
+require_relative 'curriculum'
 
 # Require the Ruby file
 #
@@ -28,3 +29,14 @@ require 'pp'
 #       g5 on 2013-06-08
 #       g6 on 2013-07-08
 #       etc...
+
+CURRICULUM[:units].each do |unit|
+  puts unit[:name]
+  unit[:lessons].each do |lesson|
+    puts "  " + lesson[:name]
+    lesson[:occurrences].each do |date, description|
+      cohort_name = description[:cohort][:name]
+      puts "    #{cohort_name} on #{date}"
+    end
+  end
+end
